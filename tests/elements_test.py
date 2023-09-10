@@ -1,7 +1,7 @@
 import random
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
-    UploadAndDownloadPage
+    UploadAndDownloadPage, DynamicPropirtiesPage
 import time
 
 class TestElements:
@@ -137,3 +137,22 @@ class TestElements:
             assert check is True, "the file has not been download"
 
 
+    class TestDynamicPropertiesPage:
+
+        def test_dynamic_properties(self, driver):
+            dynamic_properties_page = DynamicPropirtiesPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_properties_page.open()
+            color_before, color_after = dynamic_properties_page.check_changed_of_color()
+            assert color_after == color_before, 'colors have not been changed'
+
+        def test_appear_button(self,driver):
+            dynamic_properties_page = DynamicPropirtiesPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_properties_page.open()
+            appear = dynamic_properties_page.check_appear_of_button()
+            assert appear is True, "button did not appearafter 5 second"
+
+        def test_enable_button(self, driver):
+            dynamic_properties_page = DynamicPropirtiesPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_properties_page.open()
+            enable = dynamic_properties_page.check_enable_button()
+            assert enable is True, " botton did not enable after 5 second"
